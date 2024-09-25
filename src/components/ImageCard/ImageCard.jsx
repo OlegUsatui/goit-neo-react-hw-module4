@@ -1,10 +1,11 @@
 import React from 'react';
+import styles from './ImageCard.module.css';
 
-const ImageCard = () => {
+const ImageCard = ({image}) => {
     return (
-        <div>
-            
-        </div>
+        <li className={styles.galleryItem}>
+            <img src={image.urls.small} alt={image.alt_description}/>
+        </li>
     );
 };
 

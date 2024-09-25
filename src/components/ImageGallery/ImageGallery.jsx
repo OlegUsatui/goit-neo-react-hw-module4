@@ -1,10 +1,19 @@
 import React from 'react';
+import ImageCard from "../ImageCard/ImageCard.jsx";
+import styles from './ImageGallery.module.css';
 
-const ImageGallery = () => {
+const ImageGallery = ({images}) => {
     return (
-        <div>
-            
-        </div>
+        <ul className={styles.gallery}>
+            {
+                images.map((image) => {
+                    return (
+                        <ImageCard key={image.id} image={image}/>
+                    )
+                })
+            }
+
+        </ul>
     );
 };
 

@@ -1,0 +1,41 @@
+.searchBar {
+    display: flex;
+    justify-content: center;
+    background-color: #2c42b4; /* Синий фон */
+    padding: 20px 0;
+}
+
+.searchInputContainer {
+    position: relative;
+    width: 400px;
+}
+
+.searchButton {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.searchButton:hover {
+    color: #000;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 10px 20px 10px 60px; /* Пространство для иконки */
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.searchInput:focus {
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
