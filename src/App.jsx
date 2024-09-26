@@ -3,7 +3,8 @@ import SearchBar from "./components/SearchBar/SearchBar.jsx";
 import ImageGallery from "./components/ImageGallery/ImageGallery.jsx";
 import Loader from "./components/Loader/Loader.jsx";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn.jsx";
-import fetchImages from "./components/fetchImages.js";
+import api from "./components/api.js";
+import ImageModal from "./components/ImageModal/ImageModal.jsx";
 
 
 const App = () => {
@@ -12,7 +13,19 @@ const App = () => {
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState('');
     const [error, setError] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
+    const openModal = (image) => {
+        setSelectedImage(image);
+        setModalIsOpen(true);
+    };
+
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+        setSelectedImage(null);
+    };
     const updateImages = (data, currentPage) => {
         setImages(prevImages => (currentPage === 1 ? data.results : [...prevImages, ...data.results]));
     };
@@ -21,7 +34,7 @@ const App = () => {
         setLoading(true);
         setError(null);
         try {
-            const data = await fetchImages(searchQuery, currentPage);
+            const data = await api(searchQuery, currentPage);
             updateImages(data, currentPage);
         } catch (error) {
             setError('Something went wrong while fetching the images.');
@@ -57,11 +70,18 @@ const App = () => {
 
     return (
         <div>
-            <SearchBar onSearch={handleSearch} />
+            <SearchBar onSearch={handleSearch}/>
             {error && <p>{error}</p>}
-            {images.length > 0 && <ImageGallery images={images}/>}
-            {loading && <Loader />}
-            {!loading && images.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
+            {images.length > 0 && <ImageGallery images={images} openModal={openModal}/>}
+            {loading && <Loader/>}
+            {!loading && images.length > 0 && <LoadMoreBtn onClick={handleLoadMore}/>}
+            {modalIsOpen && selectedImage && (
+                <ImageModal
+                    image={selectedImage}
+                    isOpen={modalIsOpen}
+                    closeModal={closeModal}
+                />
+            )}
         </div>
     );
 };

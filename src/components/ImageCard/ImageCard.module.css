@@ -1,6 +1,7 @@
 .galleryItem {
-    width: 400px;
+    width: 366px;
     max-height: 250px;
+    cursor: pointer;
 }
 
 .galleryItem img {

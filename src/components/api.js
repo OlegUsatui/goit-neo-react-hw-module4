@@ -8,7 +8,10 @@ const fetchImages = async (searchQuery, currentPage) => {
         params: {
             query: searchQuery,
             page: currentPage,
-            client_id: ACCESS_KEY
+            client_id: ACCESS_KEY,
+            per_page: 12,
+            w: 366,
+            h: 250
         },
     });
     return response.data;
