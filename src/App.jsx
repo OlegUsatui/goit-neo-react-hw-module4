@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SearchBar from "./components/SearchBar/SearchBar.jsx";
 import ImageGallery from "./components/ImageGallery/ImageGallery.jsx";
 import Loader from "./components/Loader/Loader.jsx";
@@ -14,7 +14,6 @@ const App = () => {
     const [error, setError] = useState(null);
 
     const updateImages = (data, currentPage) => {
-        console.log(data)
         setImages(prevImages => (currentPage === 1 ? data.results : [...prevImages, ...data.results]));
     };
 
@@ -42,7 +41,19 @@ const App = () => {
         const nextPage = page + 1;
         setPage(nextPage);
         getImages(query, nextPage);
+
     }
+
+    useEffect(() => {
+        if (images.length > 0) {
+            setTimeout(() => {
+                window.scrollTo({
+                    top: document.documentElement.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }, 500);
+        }
+    }, [images]);
 
     return (
         <div>
