@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import styles from './SearchBar.module.css';
 import {FaSearch} from 'react-icons/fa';
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const SearchBar = ({onSearch}) => {
     const [inputValue, setInputValue] = useState('');
@@ -11,9 +13,11 @@ const SearchBar = ({onSearch}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (inputValue.trim() !== '') {
-            onSearch(inputValue);
+        if (inputValue.trim() === '') {
+            toast.error('Поле пошуку не може бути пустим');
+            return;
         }
+        onSearch(inputValue);
     };
     return (
         <header className={styles.searchBar}>
@@ -29,6 +33,7 @@ const SearchBar = ({onSearch}) => {
                     placeholder="Search..."
                 />
             </form>
+            <ToastContainer />
         </header>
     );
 };
